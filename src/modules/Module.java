@@ -1,5 +1,7 @@
 package modules;
 
+import app.UserAction;
+
 /**
  * Created by IntelliJ IDEA.
  * User: mateusz
@@ -10,4 +12,8 @@ public interface Module {
     public void reset();
 
     public void start();
+
+    void stop();
+
+    void process(UserAction userAction);
 }

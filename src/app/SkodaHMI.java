@@ -1,5 +1,6 @@
 package app;
 
+import coc.AV;
 import coc.BC;
 import modules.MediaModule;
 import modules.Module;
@@ -24,6 +25,7 @@ public class SkodaHMI {
     private JButton hkMedia;
     private JButton hkSetup;
     private JButton hkBack;
+    private JButton hkRRE;
 
     Module radio;
     Module media;
@@ -32,9 +34,9 @@ public class SkodaHMI {
 
     //Thread BCThread;
     BC bcCoC;
+    AV avCoC;
 
     private Module previousModule;
-    private JButton hkRRE;
 
     public SkodaHMI() {
         setupGUI();
@@ -72,20 +74,29 @@ public class SkodaHMI {
         });
     }
 
-    private Boolean hkBackHandler() {
-        return false;
+    private void hkRadioHandler() {
+        if (currentModule == radio)
+            radio.process(UserAction.HK_Radio);
+        else
+            startModule(radio);
     }
 
-    private void hkSetupHandler() {
-        //To change body of created methods use File | Settings | File Templates.
+    private void startModule(Module module) {
+        currentModule.stop();
+        currentModule = module;
+
     }
 
     private void hkMediaHandler() {
         //To change body of created methods use File | Settings | File Templates.
     }
 
-    private void hkRadioHandler() {
+    private void hkSetupHandler() {
         //To change body of created methods use File | Settings | File Templates.
+    }
+
+    private Boolean hkBackHandler() {
+        return false;
     }
 
     private void setupGUI() {

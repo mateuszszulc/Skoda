@@ -1,5 +1,6 @@
 package modules;
 
+import app.UserAction;
 import screens.Screen;
 
 /**
@@ -25,6 +26,14 @@ public class RadioModule implements Module {
     }
 
     public void start() {
+        //To change body of implemented methods use File | Settings | File Templates.
+    }
+
+    public void stop() {
+        //To change body of implemented methods use File | Settings | File Templates.
+    }
+
+    public void process(UserAction userAction) {
         //To change body of implemented methods use File | Settings | File Templates.
     }
 }
