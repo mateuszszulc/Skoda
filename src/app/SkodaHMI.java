@@ -1,3 +1,11 @@
+package app;
+
+import coc.BC;
+import modules.MediaModule;
+import modules.Module;
+import modules.RadioModule;
+import modules.SetupModule;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -17,25 +25,26 @@ public class SkodaHMI {
     private JButton hkSetup;
     private JButton hkBack;
 
-    CoC radio;
-    CoC media;
-    CoC setup;
-    CoC currentCoC;
+    Module radio;
+    Module media;
+    Module setup;
+    Module currentModule;
 
     //Thread BCThread;
-    BC bc;
+    BC bcCoC;
 
-    private CoC previousCoC;
+    private Module previousModule;
+    private JButton hkRRE;
 
     public SkodaHMI() {
         setupGUI();
         setupListeners();
 
-        radio = new RadioCoC();
-        media = new MediaCoC();
-        setup = new SetupCoC();
+        radio = new RadioModule();
+        media = new MediaModule();
+        setup = new SetupModule();
 
-        currentCoC = radio;
+        currentModule = radio;
     }
 
     private void setupListeners() {
@@ -58,7 +67,7 @@ public class SkodaHMI {
         hkBack.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 if (!hkBackHandler())
-                    currentCoC = previousCoC;
+                    currentModule = previousModule;
             }
         });
     }
@@ -81,32 +90,39 @@ public class SkodaHMI {
 
     private void setupGUI() {
         frontPanel = new JFrame();
-        frontPanel.setSize(500, 200);
+        frontPanel.setSize(600, 200);
         Container pane = frontPanel.getContentPane();
 
         JPanel leftPanel = createLeftPanel();
         pane.add(leftPanel, BorderLayout.LINE_START);
 
         display = new JPanel();
-        display.add(new JLabel("R/Maryja"));
+        //display.setSize(500,500);
+        display.add(new JLabel("R/Maryja"), BorderLayout.CENTER);
         pane.add(display, BorderLayout.CENTER);
 
         JPanel rightPanel = createRightPanel();
         pane.add(rightPanel, BorderLayout.LINE_END);
-        frontPanel.pack();
+        //frontPanel.pack();
     }
 
     private JPanel createRightPanel() {
         JPanel rightPanel = new JPanel();
+        GridLayout gridLayout = new GridLayout(3, 1);
+        rightPanel.setLayout(gridLayout);
         hkSetup = new JButton("Setup");
         hkBack = new JButton("Back");
+        hkRRE = new JButton("RRE");
         rightPanel.add(hkSetup);
         rightPanel.add(hkBack);
+        rightPanel.add(hkRRE);
         return rightPanel;
     }
 
     private JPanel createLeftPanel() {
         JPanel leftPanel = new JPanel();
+        GridLayout gridLayout = new GridLayout(2, 1);
+        leftPanel.setLayout(gridLayout);
         hkRadio = new JButton("Radio");
         hkMedia = new JButton("Media");
         leftPanel.add(hkRadio);

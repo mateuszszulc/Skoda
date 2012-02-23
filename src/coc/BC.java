@@ -1,3 +1,7 @@
+package coc;
+
+import app.SkodaHMI;
+
 import javax.swing.*;
 
 /**
