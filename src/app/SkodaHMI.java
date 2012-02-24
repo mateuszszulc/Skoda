@@ -41,12 +41,14 @@ public class SkodaHMI {
     public SkodaHMI() {
         setupGUI();
         setupListeners();
+        createModules();
+        currentModule = radio;
+    }
 
+    private void createModules() {
         radio = new RadioModule();
         media = new MediaModule();
         setup = new SetupModule();
-
-        currentModule = radio;
     }
 
     private void setupListeners() {
@@ -102,43 +104,54 @@ public class SkodaHMI {
     private void setupGUI() {
         frontPanel = new JFrame();
         frontPanel.setSize(600, 200);
-        Container pane = frontPanel.getContentPane();
 
-        JPanel leftPanel = createLeftPanel();
-        pane.add(leftPanel, BorderLayout.LINE_START);
+        createSidePanels();
 
         display = new JPanel();
-        //display.setSize(500,500);
         display.add(new JLabel("R/Maryja"), BorderLayout.CENTER);
-        pane.add(display, BorderLayout.CENTER);
+        frontPanel.add(display, BorderLayout.CENTER);
 
+    }
+
+    private void createSidePanels() {
+        instantiateButtons();
+        JPanel leftPanel = createLeftPanel();
+        frontPanel.add(leftPanel, BorderLayout.LINE_START);
         JPanel rightPanel = createRightPanel();
-        pane.add(rightPanel, BorderLayout.LINE_END);
-        //frontPanel.pack();
+        frontPanel.add(rightPanel, BorderLayout.LINE_END);
     }
 
     private JPanel createRightPanel() {
-        JPanel rightPanel = new JPanel();
-        GridLayout gridLayout = new GridLayout(3, 1);
-        rightPanel.setLayout(gridLayout);
+        JPanel panel = createPanelWithGridLayout(3,1);
+        addButtonsToPanel(panel, hkSetup, hkBack, hkRRE);
+        return panel;
+    }
+
+    private void instantiateButtons() {
         hkSetup = new JButton("Setup");
         hkBack = new JButton("Back");
         hkRRE = new JButton("RRE");
-        rightPanel.add(hkSetup);
-        rightPanel.add(hkBack);
-        rightPanel.add(hkRRE);
-        return rightPanel;
+        hkRadio = new JButton("Radio");
+        hkMedia = new JButton("Media");
+    }
+
+    private void addButtonsToPanel(JPanel panel, JButton... buttons) {
+        for ( JButton button : buttons ) {
+            panel.add(button);
+        }
     }
 
     private JPanel createLeftPanel() {
-        JPanel leftPanel = new JPanel();
-        GridLayout gridLayout = new GridLayout(2, 1);
-        leftPanel.setLayout(gridLayout);
-        hkRadio = new JButton("Radio");
-        hkMedia = new JButton("Media");
-        leftPanel.add(hkRadio);
-        leftPanel.add(hkMedia);
-        return leftPanel;
+        JPanel panel = createPanelWithGridLayout(2, 1);
+        addButtonsToPanel(panel, hkRadio, hkMedia);
+        return panel;
+    }
+
+    private JPanel createPanelWithGridLayout(int row, int column) {
+        JPanel panel = new JPanel();
+        GridLayout gridLayout = new GridLayout(row, column);
+        panel.setLayout(gridLayout);
+        return panel;
     }
 
     public void setVisible(boolean visible) {
