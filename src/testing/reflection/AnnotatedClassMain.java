@@ -1,5 +1,7 @@
 package testing.reflection;
 
+import testing.annotations.MyAnnotationType;
+
 import java.lang.annotation.Annotation;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;

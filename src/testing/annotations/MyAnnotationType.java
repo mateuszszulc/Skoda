@@ -1,4 +1,4 @@
-package testing.reflection;
+package testing.annotations;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -12,6 +12,6 @@ import java.lang.annotation.Target;
  * Time: 23:11
  */
 @Retention(RetentionPolicy.RUNTIME)
-@Target(ElementType.METHOD)
-public @interface MyAnnotationMethod {
+@Target(ElementType.TYPE)
+public @interface MyAnnotationType {
 }

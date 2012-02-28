@@ -12,8 +12,8 @@ public class SkodaApplication {
     public static void main(String[] args) {
         SwingUtilities.invokeLater(new Runnable() {
             public void run() {
-                SkodaHMI skodaHMI = new SkodaHMI();
-                skodaHMI.setVisible(true);
+                SkodaDispatcher skodaDispatcher = new SkodaDispatcher();
+                skodaDispatcher.setVisible(true);
             }
         });
     }

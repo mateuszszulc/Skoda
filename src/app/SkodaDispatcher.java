@@ -18,7 +18,7 @@ import java.awt.event.ActionListener;
  * Date: 22.02.12
  * Time: 23:06
  */
-public class SkodaHMI {
+public class SkodaDispatcher {
     private JFrame frontPanel;
     private JPanel display;
     private JButton hkRadio;
@@ -38,7 +38,7 @@ public class SkodaHMI {
 
     private Module previousModule;
 
-    public SkodaHMI() {
+    public SkodaDispatcher() {
         setupGUI();
         setupListeners();
         createModules();
@@ -52,7 +52,7 @@ public class SkodaHMI {
     }
 
     private void setupListeners() {
-        //brzydko pachnie - to mogloby byc chyba jakos generowane.
+        //code smell - this looks like boilerplate - and most probably should be somehow generated.
         hkRadio.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 hkRadioHandler();

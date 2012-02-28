@@ -1,6 +1,6 @@
 package coc;
 
-import app.SkodaHMI;
+import app.SkodaDispatcher;
 
 import javax.swing.*;
 
@@ -11,10 +11,10 @@ import javax.swing.*;
  * Time: 23:59
  */
 public class BC implements Runnable {
-    private SkodaHMI skodaHMI;
+    private SkodaDispatcher skodaDispatcher;
 
-    public BC(SkodaHMI skodaHMIparam) {
-        skodaHMI = skodaHMIparam;
+    public BC(SkodaDispatcher skodaHMIparam) {
+        skodaDispatcher = skodaHMIparam;
     }
 
     public void run() {
@@ -26,7 +26,7 @@ public class BC implements Runnable {
             }
             SwingUtilities.invokeLater(new Runnable() {
                 public void run() {
-                    skodaHMI.processEvent();
+                    skodaDispatcher.processEvent();
                 }
             });
 

@@ -1,5 +1,9 @@
 package testing.reflection;
 
+import testing.annotations.MyAnnotationField;
+import testing.annotations.MyAnnotationMethod;
+import testing.annotations.MyAnnotationType;
+
 /**
  * Created by IntelliJ IDEA.
  * User: mateusz

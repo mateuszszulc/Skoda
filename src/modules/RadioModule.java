@@ -10,7 +10,14 @@ import screens.Screen;
  * Time: 23:54
  */
 public class RadioModule implements Module {
-    Screen mainRadioScreen; //tak jak widget Qt
+    Screen mainRadioScreen;
+    //1. child-parent model like in Qt?
+    //2. Events consuming model
+    //3.
+    
+    Screen children[] = new Screen[10];
+
+    Screen currentChild;
 
     public RadioModule() {
 
@@ -18,6 +25,14 @@ public class RadioModule implements Module {
     }
 
     public void rrePress() {
+
+    }
+
+    public void rreRight() {
+
+    }
+
+    public void rreLeft() {
 
     }
 
