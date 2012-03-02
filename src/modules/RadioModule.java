@@ -3,6 +3,7 @@ package modules;
 import app.BCEvents;
 import app.EventManager;
 import app.UserAction;
+import coc.BC;
 import screens.Screen;
 
 import javax.swing.*;
@@ -69,6 +70,20 @@ public class RadioModule implements Module {
 
     private void setupDisplay() {
         Container pane = display.getRootPane();
+
+        //Start radio somehow...
+        //1. Asynchronous:
+        // Start radio asynchronous, fetch cached data and wait for callback with
+        // (possibly) updated data (this is probably how it works at Conti)
+
+        //1a send event/post message or direct call to asynchronous method.
+
+        BC.start();
+
+        //2. Synchronized...
+
+        //3. Is there any other way?
+
 
     }
 

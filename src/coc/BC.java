@@ -13,8 +13,8 @@ import javax.swing.*;
 public class BC implements Runnable {
     private SkodaDispatcher skodaDispatcher;
 
-    public BC(SkodaDispatcher skodaHMIparam) {
-        skodaDispatcher = skodaHMIparam;
+    public BC(SkodaDispatcher skodaDispatcher) {
+        this.skodaDispatcher = skodaDispatcher;
     }
 
     public void run() {
@@ -31,5 +31,9 @@ public class BC implements Runnable {
             });
 
         }
+    }
+
+    public static void start() {
+        //To change body of created methods use File | Settings | File Templates.
     }
 }
