@@ -1,5 +1,8 @@
 package app;
 
+import cache.AVCache;
+import cache.BCCache;
+import cache.SkodaConfig;
 import coc.AV;
 import coc.BC;
 import modules.MediaModule;
@@ -20,12 +23,19 @@ import java.awt.event.ActionListener;
  */
 public class SkodaDispatcher {
     private JFrame frontPanel;
+
+    public JPanel getDisplay() {
+        return display;
+    }
+
     private JPanel display;
     private JButton hkRadio;
     private JButton hkMedia;
     private JButton hkSetup;
     private JButton hkBack;
     private JButton hkRRE;
+
+    EventManager eventManager;
 
     Module radio;
     Module media;
@@ -36,19 +46,26 @@ public class SkodaDispatcher {
     BC bcCoC;
     AV avCoC;
 
+    BCCache bcCache;
+    AVCache avCache;
+    SkodaConfig skodaConfig;
+
     private Module previousModule;
 
     public SkodaDispatcher() {
+        eventManager = new EventManager();
         setupGUI();
         setupListeners();
         createModules();
-        currentModule = radio;
+        startModule(radio);
     }
 
     private void createModules() {
-        radio = new RadioModule();
-        media = new MediaModule();
-        setup = new SetupModule();
+        //TODO Maybe eventManager also should be exclusive?
+        //What for is eventManager?
+        radio = new RadioModule(display, eventManager);
+        media = new MediaModule(display, eventManager);
+        setup = new SetupModule(display, eventManager);
     }
 
     private void setupListeners() {
@@ -84,8 +101,10 @@ public class SkodaDispatcher {
     }
 
     private void startModule(Module module) {
-        currentModule.stop();
+        if (currentModule != null) currentModule.stop();
         currentModule = module;
+        currentModule.start();
+
 
     }
 
@@ -108,7 +127,7 @@ public class SkodaDispatcher {
         createSidePanels();
 
         display = new JPanel();
-        display.add(new JLabel("R/Maryja"), BorderLayout.CENTER);
+        display.add(new JLabel("Skoda Multimedia Interface"), BorderLayout.CENTER);
         frontPanel.add(display, BorderLayout.CENTER);
 
     }
@@ -122,7 +141,7 @@ public class SkodaDispatcher {
     }
 
     private JPanel createRightPanel() {
-        JPanel panel = createPanelWithGridLayout(3,1);
+        JPanel panel = createPanelWithGridLayout(3, 1);
         addButtonsToPanel(panel, hkSetup, hkBack, hkRRE);
         return panel;
     }
@@ -136,7 +155,7 @@ public class SkodaDispatcher {
     }
 
     private void addButtonsToPanel(JPanel panel, JButton... buttons) {
-        for ( JButton button : buttons ) {
+        for (JButton button : buttons) {
             panel.add(button);
         }
     }
