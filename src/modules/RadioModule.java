@@ -3,6 +3,7 @@ package modules;
 import app.BCEvents;
 import app.EventManager;
 import app.UserAction;
+import cache.BCCache;
 import coc.BC;
 import screens.Screen;
 
@@ -29,6 +30,8 @@ public class RadioModule implements Module {
     //maybe this is not necessary as always one screen will be active?
     private JPanel display;
     private EventManager eventManager;
+    private BCCache bcCache;
+    private BC bcCoC;
 
     public boolean isStarted() {
         return started;
@@ -36,9 +39,11 @@ public class RadioModule implements Module {
 
     private boolean started;
 
-    public RadioModule(JPanel display, EventManager eventManager) {
+    public RadioModule(JPanel display, EventManager eventManager, BC bcCoC, BCCache bcCache) {
         this.display = display;
         this.eventManager = eventManager;
+        this.bcCache = bcCache;
+        this.bcCoC = bcCoC;
     }
 
     public void rrePress() {
@@ -60,12 +65,8 @@ public class RadioModule implements Module {
     public void start() {
         if (isStarted()) return;
         started = true;
-
         registerEvents();
         setupDisplay();
-
-
-        //To change body of implemented methods use File | Settings | File Templates.
     }
 
     private void setupDisplay() {
@@ -78,7 +79,13 @@ public class RadioModule implements Module {
 
         //1a send event/post message or direct call to asynchronous method.
 
-        BC.start();
+        //TODO Here to start
+        bcCoC.start();
+
+        display.removeAll();
+        display.add(new JLabel("Radio Main Screen"), BorderLayout.CENTER);
+        display.updateUI();
+
 
         //2. Synchronized...
 
@@ -94,6 +101,7 @@ public class RadioModule implements Module {
 
     public void stop() {
         started = false;
+        bcCoC.stop();
     }
 
     public void process(UserAction userAction) {

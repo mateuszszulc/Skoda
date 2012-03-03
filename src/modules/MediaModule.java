@@ -4,6 +4,7 @@ import app.EventManager;
 import app.UserAction;
 
 import javax.swing.*;
+import java.awt.*;
 
 /**
  * Created by IntelliJ IDEA.
@@ -12,8 +13,10 @@ import javax.swing.*;
  * Time: 23:54
  */
 public class MediaModule implements Module {
+    private JPanel display;
+
     public MediaModule(JPanel display, EventManager eventManager) {
-        //To change body of created methods use File | Settings | File Templates.
+        this.display = display;
     }
 
     public void reset() {
@@ -21,7 +24,9 @@ public class MediaModule implements Module {
     }
 
     public void start() {
-        //To change body of implemented methods use File | Settings | File Templates.
+        display.removeAll();
+        display.add(new JLabel("Media Screen"), BorderLayout.CENTER);
+        display.updateUI();
     }
 
     public void stop() {

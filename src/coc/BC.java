@@ -1,5 +1,6 @@
 package coc;
 
+import app.RadioPlayer;
 import app.SkodaDispatcher;
 
 import javax.swing.*;
@@ -12,9 +13,12 @@ import javax.swing.*;
  */
 public class BC implements Runnable {
     private SkodaDispatcher skodaDispatcher;
+    private boolean started;
+    private RadioPlayer player;
 
     public BC(SkodaDispatcher skodaDispatcher) {
         this.skodaDispatcher = skodaDispatcher;
+        this.player = new RadioPlayer();
     }
 
     public void run() {
@@ -33,7 +37,19 @@ public class BC implements Runnable {
         }
     }
 
-    public static void start() {
-        //To change body of created methods use File | Settings | File Templates.
+    public void start() {
+        if (isStarted()) return;
+        started = true;
+        player.start();
+    }
+
+    public void stop() {
+        if (!isStarted()) return;
+        started = false;
+        player.stop();
+    }
+
+    private boolean isStarted() {
+        return started;
     }
 }

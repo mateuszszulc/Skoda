@@ -41,6 +41,7 @@ public class SkodaDispatcher {
     Module media;
     Module setup;
     Module currentModule;
+    private Module previousModule;
 
     //Thread BCThread;
     BC bcCoC;
@@ -50,20 +51,34 @@ public class SkodaDispatcher {
     AVCache avCache;
     SkodaConfig skodaConfig;
 
-    private Module previousModule;
 
     public SkodaDispatcher() {
         eventManager = new EventManager();
         setupGUI();
         setupListeners();
         createModules();
-        startModule(radio);
+
+
+        Thread t = new Thread(new Runnable() {
+            public void run() {
+                try {
+                    Thread.sleep(2000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+                }
+                startModule(radio);
+            }
+        });
+        t.start();
     }
 
     private void createModules() {
         //TODO Maybe eventManager also should be exclusive?
         //What for is eventManager?
-        radio = new RadioModule(display, eventManager);
+        bcCoC = new BC(this);
+        AV avCoC = new AV();
+
+        radio = new RadioModule(display, eventManager, bcCoC, bcCache);
         media = new MediaModule(display, eventManager);
         setup = new SetupModule(display, eventManager);
     }
@@ -109,7 +124,10 @@ public class SkodaDispatcher {
     }
 
     private void hkMediaHandler() {
-        //To change body of created methods use File | Settings | File Templates.
+        if (currentModule == media)
+            media.process(UserAction.HK_Media);
+        else
+            startModule(media);
     }
 
     private void hkSetupHandler() {
