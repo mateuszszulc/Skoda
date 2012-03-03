@@ -14,6 +14,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Observable;
+import java.util.Observer;
 
 /**
  * Created by IntelliJ IDEA.
@@ -21,7 +23,7 @@ import java.awt.event.ActionListener;
  * Date: 22.02.12
  * Time: 23:06
  */
-public class SkodaDispatcher {
+public class SkodaDispatcher implements Observer {
     private JFrame frontPanel;
 
     public JPanel getDisplay() {
@@ -197,5 +199,9 @@ public class SkodaDispatcher {
 
     public void processEvent() {
         //To change body of created methods use File | Settings | File Templates.
+    }
+
+    public void update(Observable o, Object arg) {
+        //To change body of implemented methods use File | Settings | File Templates.
     }
 }

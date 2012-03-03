@@ -4,6 +4,7 @@ import app.RadioPlayer;
 import app.SkodaDispatcher;
 
 import javax.swing.*;
+import java.util.Observable;
 
 /**
  * Created by IntelliJ IDEA.
@@ -11,14 +12,20 @@ import javax.swing.*;
  * Date: 22.02.12
  * Time: 23:59
  */
-public class BC implements Runnable {
+
+//TODO: How BC informs about new events? Observable.
+public class BC extends Observable implements Runnable {
     private SkodaDispatcher skodaDispatcher;
     private boolean started;
     private RadioPlayer player;
+    private Thread stationListThread;
 
     public BC(SkodaDispatcher skodaDispatcher) {
         this.skodaDispatcher = skodaDispatcher;
         this.player = new RadioPlayer();
+
+        this.stationListThread = new Thread(new StationListRunnable());
+        this.stationListThread.start();
     }
 
     public void run() {
