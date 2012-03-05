@@ -143,6 +143,8 @@ public class SkodaDispatcher implements Observer {
     private void setupGUI() {
         frontPanel = new JFrame();
         frontPanel.setSize(600, 200);
+        frontPanel.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
 
         createSidePanels();
 

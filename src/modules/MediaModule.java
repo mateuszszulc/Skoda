@@ -26,7 +26,7 @@ public class MediaModule implements Module {
     public void start() {
         display.removeAll();
         display.add(new JLabel("Media Screen"), BorderLayout.CENTER);
-        display.updateUI();
+        display.validate();
     }
 
     public void stop() {

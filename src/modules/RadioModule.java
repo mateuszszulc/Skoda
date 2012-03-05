@@ -84,7 +84,7 @@ public class RadioModule implements Module {
 
         display.removeAll();
         display.add(new JLabel("Radio Main Screen"), BorderLayout.CENTER);
-        display.updateUI();
+        display.validate();
 
 
         //2. Synchronized...
